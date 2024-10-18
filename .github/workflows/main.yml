@@ -26,6 +26,7 @@ jobs:
 
       - name: Compile codes 
         run: |
+          set +e
           git clone https://gitlab.com/sosy-lab/benchmarking/sv-benchmarks.git
           cd sv-benchmarks/c
           mkdir -p memorysan_logs
