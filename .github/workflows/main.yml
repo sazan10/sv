@@ -42,12 +42,12 @@ jobs:
           #done
           LOG_FILE="compiled_files.log"
           ERROR_LOG="compilation_errors.log"
-          
+
           # Clear the log files or create them if they don't exist
           > "$LOG_FILE"
           > "$ERROR_LOG"
           read -r -a dirs < "$DIR_FILE"
-          
+
           # Iterate over each directory in the array
           for dir in "${dirs[@]}"; do
               # Check if the directory exists
@@ -95,3 +95,8 @@ jobs:
               done
                 fi
           done
+      - name: Upload san reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsan-report
+          path: './tsan_logs/*'
