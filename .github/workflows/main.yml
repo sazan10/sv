@@ -30,7 +30,7 @@ jobs:
           git clone https://gitlab.com/sosy-lab/benchmarking/sv-benchmarks.git
           cd sv-benchmarks/c
           mkdir -p tsan_logs
-          DIR_FILE="directories.txt"
+          DIR_FILE="../../directories.txt"
           CC="clang"
           CFLAGS="-fsanitize=thread -fPIE -fPIC -g -O2"
           OUTPUT_DIR="build"
