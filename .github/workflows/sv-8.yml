@@ -29,7 +29,7 @@ jobs:
           set +e
           git clone https://gitlab.com/sosy-lab/benchmarking/sv-benchmarks.git
           cd sv-benchmarks/c
-          mkdir -p msan_logs
+          mkdir -p tsan_logs
           DIR_FILE="../../directories8.txt"
           CC="clang"
           CFLAGS="-fsanitize=thread -fPIE -fPIC -g -O2"
@@ -80,16 +80,16 @@ jobs:
               return 1
             fi
           }
-          run_with_asan() {
+          run_with_san() {
             local executable="$1"
-            MSAN_OPTIONS="exitcode=1 verbosity=1 halt_on_error=1 print_stats=1 log_path=./msan_logs/$(dirname "$file" )/$(basename "$executable")/$i.txt" "$executable"
+            TSAN_OPTIONS="exitcode=1 verbosity=1 halt_on_error=1 print_stats=1 log_path=./tsan_logs/$(dirname "$file" )/$(basename "$executable")/$i.txt" "$executable"
             local exit_status=$?
           }
           find . -type f -executable | while read -r file; do
             if is_executable "$file"; then
               for i in {1..10}; do
                 echo "Executing $file: Iteration No: $i"
-                run_with_asan "$file" $i
+                run_with_san "$file" $i
               done
                 fi
           done
@@ -97,4 +97,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tsan-report
-          path: './msan_logs/*'
+          path: './tsan_logs/*'
