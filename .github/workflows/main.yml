@@ -99,4 +99,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tsan-report
-          path: './tsan_logs/*'
+          path: './sv-benchmarks/c/tsan_logs/*'
