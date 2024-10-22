@@ -84,7 +84,7 @@ jobs:
           }
           run_with_asan() {
             local executable="$1"
-            TSAN_OPTIONS="exitcode=1 verbosity=1 halt_on_error=1 print_stats=1 log_path=./tsan_logs/$(dirname "$file" )/$(basename "$executable")/$i.txt" "$executable"
+            TSAN_OPTIONS="exitcode=1 verbosity=1 halt_on_error=1 print_stats=1 log_path=./tsan_logs/$(dirname "$file" )/$(basename "$executable")/$i.txt" timeout 10s "$executable"
             local exit_status=$?
           }
           find . -type f -executable | while read -r file; do
