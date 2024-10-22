@@ -1,4 +1,4 @@
-name: sv-directories1
+name: sv-directories5
 
 on:
   push:
@@ -84,7 +84,7 @@ jobs:
           }
           run_with_asan() {
             local executable="$1"
-            ASAN_OPTIONS="exitcode=1 verbosity=1 halt_on_error=1 print_stats=1 log_path=./asan_logs/$(dirname "$file" )/$(basename "$executable")/$i.txt" "$executable"
+            ASAN_OPTIONS="exitcode=1 verbosity=1 halt_on_error=1 print_stats=1 log_path=./asan_logs/$(dirname "$file" )/$(basename "$executable")/$i.txt" timeout 10s "$executable"
             local exit_status=$?
           }
           find . -type f -executable | while read -r file; do
