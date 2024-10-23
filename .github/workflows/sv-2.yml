@@ -2,7 +2,6 @@ name: sv-directories2
 
 on:
   push:
-  
 jobs:
   run-tsan:
     name: '${{ matrix.os }}'
