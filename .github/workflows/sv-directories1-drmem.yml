@@ -79,9 +79,9 @@ jobs:
             if is_executable "$file"; then
               for i in {1..10}; do
                 echo "Executing $file: Iteration No: $i"
-                run_with_asan "$file" $i
+                run_with_drmemory "$file" $i              
               done
-                fi
+            fi
           done
       - name: Upload san reports
         uses: actions/upload-artifact@v4
