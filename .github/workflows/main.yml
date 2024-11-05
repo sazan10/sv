@@ -45,7 +45,7 @@ jobs:
           > "$LOG_FILE"
           > "$ERROR_LOG"
           read -r -a dirs < "$DIR_FILE"
-
+          include_dirs=$(find . -name '*.h' -exec dirname {} + | sort -u | sed 's/^/-I /')
           # Iterate over each directory in the array
           for dir in "${dirs[@]}"; do
               # Check if the directory exists
@@ -58,7 +58,7 @@ jobs:
                       # Compile the file to an object file in the output directory
                       echo "Compiling $file..."
                       echo "Directory name: $dirname/$base_name"
-                      $CC $CFLAGS "$file" -o "$dirname/$base_name"
+                      $CC $CFLAGS -I "$include_dirs" "$file" -o "$dirname/$base_name"
                       # Check if the compilation succeeded
                       if [ $? -ne 0 ]; then
                           echo "Error compiling $file. Exiting."
